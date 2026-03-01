@@ -5,7 +5,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Arrays;
 public class NewsFeedAdapter {
 
     private Socket socket;
@@ -19,7 +19,7 @@ public class NewsFeedAdapter {
 
     public void connect(String host, int port) throws IOException {
         socket = new Socket(host, port);
-        socket.setSoTimeout(2000); // ← ADD THIS: prevents tests hanging forever
+        socket.setSoTimeout(3000);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
     }
@@ -51,7 +51,7 @@ public class NewsFeedAdapter {
         return objectMapper.readTree(rawMessage);
     }
 
-    // ← ADD: skips messages until one with the right name arrives
+    // skips messages until one with the right name arrives
     public JsonNode receiveMessageOfType(String expectedName) throws IOException {
         while (true) {
             JsonNode msg = receiveMessage();
