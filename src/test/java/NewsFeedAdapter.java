@@ -19,6 +19,7 @@ public class NewsFeedAdapter {
 
     public void connect(String host, int port) throws IOException {
         socket = new Socket(host, port);
+        socket.setSoTimeout(2000); // ← ADD THIS: prevents tests hanging forever
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
     }
@@ -32,9 +33,7 @@ public class NewsFeedAdapter {
         Map<String, Object> message = new HashMap<>();
         message.put("name", name);
         message.put("parameters", parameters);
-
         String json = objectMapper.writeValueAsString(message);
-
         out.write(json + "<!>");
         out.flush();
     }
@@ -42,20 +41,38 @@ public class NewsFeedAdapter {
     public JsonNode receiveMessage() throws IOException {
         StringBuilder sb = new StringBuilder();
         int ch;
-
         while ((ch = in.read()) != -1) {
             sb.append((char) ch);
             if (sb.toString().endsWith("<!>")) {
                 break;
             }
         }
-
         String rawMessage = sb.toString().replace("<!>", "");
-
         return objectMapper.readTree(rawMessage);
     }
 
-    public void stopSession() throws IOException {
+    // ← ADD: skips messages until one with the right name arrives
+    public JsonNode receiveMessageOfType(String expectedName) throws IOException {
+        while (true) {
+            JsonNode msg = receiveMessage();
+            if (msg.get("name").asText().equals(expectedName)) {
+                return msg;
+            }
+        }
+    }
+
+    //  StopSession
+    public void sendStopSession() throws IOException {
+        sendMessage("StopSession", new HashMap<>());
+    }
+
+    // Unsubscribe JSON message
+    public void sendUnsubscribe() throws IOException {
+        sendMessage("Unsubscribe", new HashMap<>());
+    }
+
+    //  STOP command to shut down the server connection
+    public void stopServer() throws IOException {
         out.write("STOP<!>");
         out.flush();
     }
