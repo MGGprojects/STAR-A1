@@ -1,7 +1,7 @@
 # BDD TESTS README
 
-This repository contains BDD tests for the NewsFeed server using Cucumber + Gherkin on JUnit 5.
-The BDD suite validates protocol negotiation and subscription behavior through executable feature scenarios.
+This repository contains BDD tests for the NewsFeed server using Cucumber + Gherkin.
+The BDD suite checks protocol negotiation and subscription behavior.
 
 ## Requirements
 - **Java 17** (or above) installed and configured.
