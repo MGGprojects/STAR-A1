@@ -1,17 +1,18 @@
-package com.axini.smartdooradapter;
+package com.axini.adapter;
+
+import com.axini.adapter.generic.AdapterCore;
+import com.axini.adapter.generic.BrokerConnection;
+import com.axini.adapter.generic.Handler;
+import com.axini.adapter.smartdoor.SmartDoorHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.axini.smartdooradapter.generic.*;
-import com.axini.smartdooradapter.smartdoor.*;
-
 // Adapter: starts the BrokerConnection and AdapterCore.
-public class Adapter {
-    private static Logger logger = LoggerFactory.getLogger(Adapter.class);
+public class AdapterSmartDoor {
+    private static Logger logger = LoggerFactory.getLogger(AdapterSmartDoor.class);
 
     public static void runTest(String name, String url, String token) {
         try {

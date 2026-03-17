@@ -1,4 +1,4 @@
-package com.axini.smartdooradapter.generic;
+package com.axini.adapter.generic;
 
 import java.util.*;
 
@@ -15,8 +15,6 @@ import PluginAdapter.Api.LabelOuterClass.Label.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.axini.smartdooradapter.smartdoor.*;
 
 // AdapterCore: keeps state of the adapter.
 public class AdapterCore {

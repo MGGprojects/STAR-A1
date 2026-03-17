@@ -1,4 +1,4 @@
-package com.axini.smartdooradapter.generic;
+package com.axini.adapter.generic;
 
 import java.util.LinkedList;
 import java.util.Queue;
