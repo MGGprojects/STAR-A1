@@ -1,0 +1,11 @@
+### Running the NewsFeed Adapter
+- This project requires java version 17 or newer
+- Make sure you have protobuf installed
+  - [ProtoBuf v25.7](https://github.com/protocolbuffers/protobuf/releases/tag/v25.7) was used during development, other versions might work but this is not guaranteed
+- Check if the path in 'protocExecutable' in [pom.xml](./pom.xml) is pointed towards the protoc executable. If not, update it
+- Run `mvn clean` to clean up any previous builds
+- Run `mvn compile assembly:single` to generate a JAR for the adapter
+- After compilation, the JAR can be found in the [target](./target) folder with a name of the format `<project>-<version>-jar-with-dependencies.jar`
+- Then use `java -jar target/<generated-JAR> <name> <url> <token>` to run the adapter
+  - Example: `java -jar target/STAR-A1-1.0-SNAPSHOT-jar-with-dependencies.jar newsfeed wss://course02.axini.com:443/adapters axini_abcdef123456789`
+- Note that the NewsFeed server must be running for the adapter to work!
